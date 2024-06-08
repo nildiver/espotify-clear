@@ -14,15 +14,26 @@ listObservers$:Array <Subscription>=[]
 
  constructor(private TrackService:TrackService){}
  ngOnInit():void {
-  this.TrackService.getallTracks$().subscribe((Response: TracksModel[]) =>{
-    this.tracksTrending= Response
-  })
-
-  this.TrackService.getallRandom$().subscribe((Response: TracksModel[]) =>{
-    this. tracksRandom= Response
-  })
+  this.loaDataAll();
+  this.loaDataRandom();
 
  }
+
+async loaDataAll():Promise<any>{
+this.tracksTrending =await this.TrackService.getallTracks$().toPromise()
+this.tracksRandom =await this.TrackService.getallTracks$().toPromise()
+
+
+
+ }
+
+ loaDataRandom():void{
+   this.TrackService.getallRandom$()
+  .subscribe((Response: TracksModel[]) =>{
+    this. tracksRandom= Response
+  },err =>{ console.log('error de conexion');})
+ }
+
  ngOnDestroy(): void {
 
  }

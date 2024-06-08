@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@modules/auth/servicies/auth.service';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+  errorSession:boolean =false
   formLogin:FormGroup= new FormGroup({});
-  constructor(private authService:AuthService){
+  constructor(private authService:AuthService ,private cookie:CookieService){
 
   }
   ngOnInit():void {
@@ -31,5 +32,14 @@ export class LoginComponent {
   sendLogin():void{
     const {email,password}= this.formLogin.value
     this.authService.sendCredentials(email,password)
+    //errors 200 al 400
+    .subscribe(ResponseOk => {//credenciales del usuario correctas
+        console.log('session iniciada correcta',ResponseOk);
+        const{tokenSession,data}=ResponseOk
+        this.cookie.set('token',tokenSession,4,'/')
+    },err =>{//todo  error 400
+      this.errorSession=(true)
+      console.log('Ocurrio error email o password')
+    })
    }
 }
