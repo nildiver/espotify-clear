@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '@modules/auth/servicies/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 @Component({
@@ -10,7 +11,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent {
   errorSession:boolean =false
   formLogin:FormGroup= new FormGroup({});
-  constructor(private authService:AuthService ,private cookie:CookieService){
+  constructor(private authService:AuthService ,private cookie:CookieService,
+    private router:Router){
 
   }
   ngOnInit():void {
@@ -37,6 +39,7 @@ export class LoginComponent {
         console.log('session iniciada correcta',ResponseOk);
         const{tokenSession,data}=ResponseOk
         this.cookie.set('token',tokenSession,4,'/')
+        this.router.navigate(['/','tracks'])
     },err =>{//todo  error 400
       this.errorSession=(true)
       console.log('Ocurrio error email o password')
