@@ -9,6 +9,9 @@ import { TracksModel } from '../../../core/models/tracks.models';
 export class PlayListBodyComponent {
   @Input() tracks:TracksModel[]=[]
   optionsSort:{property:string | null,order:string}={property:null,order:'asc'}
+
+  constructor(){}
+
   ngOnInit():void {
     // const {data}:any =(dataRaw as any ).default
     // this.tracks=data;
