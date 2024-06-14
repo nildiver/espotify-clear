@@ -14,6 +14,7 @@ export class MultimediaService {
   public timeElapsed$:BehaviorSubject<string> = new BehaviorSubject('00:00')
   public timeRemaining$:BehaviorSubject<string> = new BehaviorSubject('00:00')
   public playerStatus$:BehaviorSubject<string> = new BehaviorSubject('paused')
+  public playerPercentage$:BehaviorSubject<number> = new BehaviorSubject(0)
  // myObservable1$:Observable<any> =new Observable()
  //myObservable1$:Subject<any> =new Subject()
 // myObservable1$:BehaviorSubject<any> =new BehaviorSubject('')
@@ -90,6 +91,13 @@ export class MultimediaService {
    console.log([duration,currentTime])
    this.setTimeElapsed(currentTime)
    this.setRemaining(currentTime,duration)
+   this.setPercentage(currentTime,duration)
+  }
+
+  private setPercentage(currentTime:number,duration:number):void{
+    //(currentTime* 100)/duration
+    let percentage =(currentTime * 100)/duration;
+    this.playerPercentage$.next(percentage)
   }
 
   private setTimeElapsed(currentTime:number){
@@ -119,5 +127,11 @@ export class MultimediaService {
 
   public togglePlayer():void{
     (this.audio.paused)?this.audio.play():this.audio.pause()
+  }
+
+  public seekAudio(percentage:number):void{
+  const {duration}=this.audio
+  const percentageSecons=(percentage *   duration)/100
+  this.audio.currentTime=percentageSecons
   }
 }
