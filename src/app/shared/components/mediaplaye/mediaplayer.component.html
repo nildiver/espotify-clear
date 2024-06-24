@@ -55,7 +55,7 @@
 
             <div class="time">{{MultimediaService.timeElapsed$ | async}}</div>
             <span #progressBar (click)="hanledPosition($event)" class="time-progress">
-                <span class="time-progress-live" [style.width]="(MultimediaService.playerPercentage$)+'%'">
+                <span class="time-progress-live" [style.width]="(MultimediaService.playerPercentage$ |async)+'%'">
                 </span>
             </span>
             <div class="time">{{MultimediaService.timeRemaining$| async}}</div>

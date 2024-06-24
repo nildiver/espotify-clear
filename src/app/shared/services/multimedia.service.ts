@@ -12,15 +12,9 @@ export class MultimediaService {
   public trackInfo$:BehaviorSubject<any>= new BehaviorSubject(undefined)
   public audio!:HTMLAudioElement
   public timeElapsed$:BehaviorSubject<string> = new BehaviorSubject('00:00')
-  public timeRemaining$:BehaviorSubject<string> = new BehaviorSubject('00:00')
+  public timeRemaining$:BehaviorSubject<string> = new BehaviorSubject('-00:00')
   public playerStatus$:BehaviorSubject<string> = new BehaviorSubject('paused')
   public playerPercentage$:BehaviorSubject<number> = new BehaviorSubject(0)
- // myObservable1$:Observable<any> =new Observable()
- //myObservable1$:Subject<any> =new Subject()
-// myObservable1$:BehaviorSubject<any> =new BehaviorSubject('')
- //behaviorsubject hay que inicializarlo o genera error
-
-
 
   constructor() {
     this.audio= new Audio()
@@ -34,30 +28,7 @@ export class MultimediaService {
 
     this.listenAllEventns()
 
-    //  setTimeout(()=>{
-    //   this.myObservable1$.next('♪♪☺')
-    //  },1000)
 
-
-
-    // linea de subject
-  //  setTimeout(()=>{
-  //   this.myObservable1$.next('♪♪☺')
-  //  },1000)
-
-//   linea de observable
-    // this.myObservable1$= new Observable(
-    //   (observer:Observer <any>)=>{
-    //  observer.next('♠♠♠♠')
-    //  setTimeout(() => {
-    //   observer.complete()
-    //  },1000);
-
-
-    //  setTimeout(() => {
-    //   observer.next('♪')
-    //  }, 25000);
-    // })
   }
   private listenAllEventns():void{
   this.audio.addEventListener('timeupdate',this.calculateTime,false)
@@ -95,7 +66,6 @@ export class MultimediaService {
   }
 
   private setPercentage(currentTime:number,duration:number):void{
-    //(currentTime* 100)/duration
     let percentage =(currentTime * 100)/duration;
     this.playerPercentage$.next(percentage)
   }
@@ -111,8 +81,8 @@ export class MultimediaService {
 
   public setRemaining(currentTime:number , duration:number):void{
     let timeLeft= duration -currentTime;
-    let seconds=Math.floor(currentTime % 60)
-    let minutes=Math.floor((currentTime/60)% 60)
+    let seconds=Math.floor(timeLeft % 60)
+    let minutes=Math.floor((timeLeft/60)% 60)
     const displaySeconds= (seconds <10) ? `0${seconds}`:seconds;
     const displayMinutes= (minutes <10) ? `0${minutes}`:minutes;
     const displayFormat=`-${displayMinutes}:${displaySeconds}`;
@@ -121,6 +91,7 @@ export class MultimediaService {
 
   public setaudio(track :TracksModel):void{
     console.log('♦♦♦♦♦',track);
+    console.log(track.url)
     this.audio.src=track.url
     this.audio.play()
   }
@@ -131,7 +102,7 @@ export class MultimediaService {
 
   public seekAudio(percentage:number):void{
   const {duration}=this.audio
-  const percentageSecons=(percentage *   duration)/100
+  const percentageSecons=(percentage * duration)/100
   this.audio.currentTime=percentageSecons
   }
 }

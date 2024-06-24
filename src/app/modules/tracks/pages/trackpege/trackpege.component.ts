@@ -8,9 +8,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./trackpege.component.css']
 })
 export class TrackpegeComponent implements OnInit,OnDestroy {
- tracksTrending:Array <TracksModel> =[]
+ tracksTrending:Array<TracksModel> =[]
  tracksRandom:Array<TracksModel>=[]
-listObservers$:Array <Subscription>=[]
+listObservers$:Array<Subscription>=[]
 
  constructor(private TrackService:TrackService){}
  ngOnInit():void {
@@ -30,7 +30,7 @@ this.tracksRandom =await this.TrackService.getallTracks$().toPromise()
  loaDataRandom():void{
    this.TrackService.getallRandom$()
   .subscribe((Response: TracksModel[]) =>{
-    this. tracksRandom= Response
+    this.tracksRandom= Response
   },err =>{ console.log('error de conexion');})
  }
 
