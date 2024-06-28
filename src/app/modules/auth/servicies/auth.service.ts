@@ -13,8 +13,8 @@ export class AuthService {
   sendCredentials(email:string,password:string):Observable <any>{
     const body={
      email,
-     password //"email":"test@test.com",
-      //"password":"123456789"
+     password ,
+
     }
    return this.http.post(`${this.URL}/auth/login`,body)
    .pipe(

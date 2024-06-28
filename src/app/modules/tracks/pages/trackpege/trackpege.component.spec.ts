@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrackpegeComponent } from './trackpege.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TrackpegeComponent', () => {
   let component: TrackpegeComponent;
@@ -8,6 +9,7 @@ describe('TrackpegeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       declarations: [TrackpegeComponent]
     });
     fixture = TestBed.createComponent(TrackpegeComponent);

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SiderbarComponent } from './siderbar.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SiderbarComponent', () => {
   let component: SiderbarComponent;
@@ -8,6 +9,7 @@ describe('SiderbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports:[RouterTestingModule],
       declarations: [SiderbarComponent]
     });
     fixture = TestBed.createComponent(SiderbarComponent);
