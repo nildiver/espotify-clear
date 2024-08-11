@@ -1,5 +1,12 @@
 # SpotifyB
 
+##
+para iniciar el programa `ng s -o ` frontend
+el api que se esta utilizando es `node-api-track-master`http://localhost:3001/api/1.0
+backend `npm run start` correr el back
+loguin name`Leifer`,email`test@test.com`,password`12345678`
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
 
 ## Development server
